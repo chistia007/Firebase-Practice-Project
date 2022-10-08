@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.firebasepractice.databinding.ActivityGetImagesBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,11 +57,15 @@ public class GetImages extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
+                                if (progressDialog.isShowing()){
+                                    progressDialog.dismiss();
+                                }
+                            Toast.makeText(GetImages.this, "Fetching Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
+
                 }
             }
         });
